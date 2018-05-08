@@ -7,7 +7,7 @@ import com.lexicon.library.utilities.BookNotFoundException;
 
 public interface BookManagementService {
 	
-	public void addBook(Book book);
+	public Book addBook(Book book);
 	
 	public void deleteBook(Book book) throws BookNotFoundException;
 	

@@ -1,7 +1,5 @@
 package com.lexicon.library.restcontrollers;
 
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +24,7 @@ public class BookRestController {
 	@Autowired
 	BookManagementService bookService;
 	
-	//TODO: add validation, error handling and XML support
+	//TODO: add updating, validation, error handling and XML support
 	
 	
 	@GetMapping("/book/{id}")
@@ -45,11 +44,11 @@ public class BookRestController {
 	}
 	
 	@PostMapping("/books")
-	public ResponseEntity<Book> addNewBook(Book book){
-		bookService.addBook(book);
+	public ResponseEntity<Book> addNewBook(@RequestBody Book book){
+		Book createdBook = bookService.addBook(book);
 		HttpHeaders headers = new HttpHeaders();
 		//TODO: fix HATEOAS things
 		//URI uri = linkTo(methodOn(BookRestController.class).);
-		return new ResponseEntity<Book>(book, headers, HttpStatus.CREATED);
+		return new ResponseEntity<Book>(createdBook, headers, HttpStatus.CREATED);
 	}
 }

@@ -16,8 +16,8 @@ public class BookManagementServiceImpl implements BookManagementService {
 	BookRepository rep;
 
 	@Override
-	public void addBook(Book book) {
-		rep.save(book);
+	public Book addBook(Book book) {
+		return rep.save(book);
 	}
 
 	@Override
