@@ -50,6 +50,26 @@ public class BookRestController {
 		return new BookCollectionRepresentation(bookService.getAllBooks());
 	}
 	
+	@GetMapping("/books/isbn/{isbn}")
+	public BookCollectionRepresentation findBooksByIsbn(@PathVariable String isbn) {
+		return new BookCollectionRepresentation(bookService.findBooksByIsbn(isbn));
+	}
+	
+	@GetMapping("/books/title/{title}")
+	public BookCollectionRepresentation findBooksByTitle(@PathVariable String title) {
+		return new BookCollectionRepresentation(bookService.findBooksByTitle(title));
+	}
+	
+	@GetMapping("/books/author/{author}")
+	public BookCollectionRepresentation findBooksByAuthor(@PathVariable String author) {
+		return new BookCollectionRepresentation(bookService.findBooksByAuthor(author));
+	}
+	
+	@GetMapping("/books/genre/{genre}")
+	public BookCollectionRepresentation findBooksByGenre(@PathVariable String genre) {
+		return new BookCollectionRepresentation(bookService.findBooksByGenre(genre));
+	}
+	
 	@PostMapping("/books")
 	public ResponseEntity<Book> addNewBook(@RequestBody Book book) throws BookAlreadyExistsException{
 		Book createdBook = bookService.addBook(book);

@@ -49,6 +49,11 @@ public class MemberRestController {
 		return new MemberCollectionRepresentation(memberService.getAllMembers());
 	}
 	
+	@GetMapping("/members/name/{name}")
+	public MemberCollectionRepresentation findMembersByName(@PathVariable String name) {
+		return new MemberCollectionRepresentation(memberService.findMembersByName(name));
+	}
+	
 	@PostMapping("/members")
 	public ResponseEntity<Member> addNewMember(@RequestBody Member member) throws MemberAlreadyExistsException{
 		Member createdMember = memberService.addMember(member);
