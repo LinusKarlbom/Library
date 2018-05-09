@@ -9,6 +9,8 @@ public interface BookManagementService {
 	
 	public Book addBook(Book book);
 	
+	public void updateBook(Book book);
+	
 	public void deleteBook(Book book) throws BookNotFoundException;
 	
 	public List<Book> getAllBooks();

@@ -19,6 +19,11 @@ public class BookManagementServiceImpl implements BookManagementService {
 	public Book addBook(Book book) {
 		return rep.save(book);
 	}
+	
+	@Override
+	public void updateBook(Book book) {
+		rep.save(book);
+	}
 
 	@Override
 	public void deleteBook(Book book) throws BookNotFoundException {
@@ -36,6 +41,7 @@ public class BookManagementServiceImpl implements BookManagementService {
 
 	@Override
 	public Book findBookById(long id) throws BookNotFoundException {
+		System.out.println(id);
 		if (rep.existsById(id)) {
 			return rep.findById(id).get();
 		}
@@ -63,5 +69,4 @@ public class BookManagementServiceImpl implements BookManagementService {
 	public List<Book> findBooksByGenre(String genre) {
 		return rep.findByGenre(genre);
 	}
-
 }
