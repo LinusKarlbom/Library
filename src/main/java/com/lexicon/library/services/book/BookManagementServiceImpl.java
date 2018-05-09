@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lexicon.library.data.BookRepository;
 import com.lexicon.library.domain.Book;
+import com.lexicon.library.utilities.BookAlreadyExistsException;
 import com.lexicon.library.utilities.BookNotFoundException;
 
 @Service
@@ -16,12 +17,16 @@ public class BookManagementServiceImpl implements BookManagementService {
 	BookRepository rep;
 
 	@Override
-	public Book addBook(Book book) {
+	public Book addBook(Book book) throws BookAlreadyExistsException {
+		if(rep.existsById(book.getId())) {
+			throw new BookAlreadyExistsException();
+		}
 		return rep.save(book);
 	}
 	
 	@Override
-	public void updateBook(Book book) {
+	public void updateBook(Book book, long id) {
+		book.setId(id);
 		rep.save(book);
 	}
 

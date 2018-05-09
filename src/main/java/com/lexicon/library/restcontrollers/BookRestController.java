@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lexicon.library.domain.Book;
 import com.lexicon.library.restrepresentations.BookCollectionRepresentation;
 import com.lexicon.library.services.book.BookManagementService;
+import com.lexicon.library.utilities.BookAlreadyExistsException;
 import com.lexicon.library.utilities.BookNotFoundException;
 
 @RestController
@@ -40,8 +41,8 @@ public class BookRestController {
 	}
 	
 	@PutMapping("/book/{id}")
-	public void updateBook(@RequestBody Book book){
-		bookService.updateBook(book);
+	public void updateBook(@RequestBody Book book, @PathVariable String id){
+		bookService.updateBook(book, Long.parseLong(id));
 		
 	}
 	
@@ -51,7 +52,7 @@ public class BookRestController {
 	}
 	
 	@PostMapping("/books")
-	public ResponseEntity<Book> addNewBook(@RequestBody Book book){
+	public ResponseEntity<Book> addNewBook(@RequestBody Book book) throws BookAlreadyExistsException{
 		Book createdBook = bookService.addBook(book);
 		HttpHeaders headers = new HttpHeaders();
 		//TODO: fix HATEOAS things

@@ -3,13 +3,14 @@ package com.lexicon.library.services.book;
 import java.util.List;
 
 import com.lexicon.library.domain.Book;
+import com.lexicon.library.utilities.BookAlreadyExistsException;
 import com.lexicon.library.utilities.BookNotFoundException;
 
 public interface BookManagementService {
 	
-	public Book addBook(Book book);
+	public Book addBook(Book book) throws BookAlreadyExistsException;
 	
-	public void updateBook(Book book);
+	public void updateBook(Book book, long id);
 	
 	public void deleteBook(Book book) throws BookNotFoundException;
 	
