@@ -50,6 +50,10 @@ public class Loan {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Member getMember() {
 		return member;
 	}

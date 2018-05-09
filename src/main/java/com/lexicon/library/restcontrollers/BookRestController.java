@@ -26,7 +26,7 @@ public class BookRestController {
 	@Autowired
 	BookManagementService bookService;
 	
-	//TODO: add updating, validation, error handling and XML support
+	//TODO: validation, error handling and XML support
 	
 	
 	@GetMapping("/book/{id}")
@@ -43,7 +43,6 @@ public class BookRestController {
 	@PutMapping("/book/{id}")
 	public void updateBook(@RequestBody Book book, @PathVariable String id){
 		bookService.updateBook(book, Long.parseLong(id));
-		
 	}
 	
 	@GetMapping("/books")

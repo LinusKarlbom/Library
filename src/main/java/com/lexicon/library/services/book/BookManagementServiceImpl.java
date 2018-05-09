@@ -46,7 +46,6 @@ public class BookManagementServiceImpl implements BookManagementService {
 
 	@Override
 	public Book findBookById(long id) throws BookNotFoundException {
-		System.out.println(id);
 		if (rep.existsById(id)) {
 			return rep.findById(id).get();
 		}
