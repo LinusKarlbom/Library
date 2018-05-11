@@ -1,5 +1,9 @@
 package com.lexicon.library.restcontrollers;
 
+import java.time.LocalDateTime;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lexicon.library.domain.Member;
 import com.lexicon.library.restrepresentations.MemberCollectionRepresentation;
 import com.lexicon.library.services.member.MemberManagementService;
+import com.lexicon.library.utilities.BookNotFoundException;
 import com.lexicon.library.utilities.MemberAlreadyExistsException;
 import com.lexicon.library.utilities.MemberNotFoundException;
 
@@ -42,6 +47,11 @@ public class MemberRestController {
 	@PutMapping("/member/{id}")
 	public void updateMember(@RequestBody Member member, @PathVariable String id){
 		memberService.updateMember(member, Long.parseLong(id));
+	}
+	
+	@PutMapping("/member/{memberId}/loan/{bookId}")
+	public void loanBook(@PathVariable String memberId, @PathParam(value = "book") Long bookId, @PathParam(value = "days") Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException{
+		memberService.loanBook(Long.parseLong(memberId), bookId, daysUntilDue);
 	}
 	
 	@GetMapping("/members")

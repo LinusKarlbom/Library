@@ -1,12 +1,18 @@
 package com.lexicon.library.services.member;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lexicon.library.data.BookRepository;
+import com.lexicon.library.data.LoanRepository;
 import com.lexicon.library.data.MemberRepository;
+import com.lexicon.library.domain.Book;
+import com.lexicon.library.domain.Loan;
 import com.lexicon.library.domain.Member;
+import com.lexicon.library.utilities.BookNotFoundException;
 import com.lexicon.library.utilities.MemberAlreadyExistsException;
 import com.lexicon.library.utilities.MemberNotFoundException;
 
@@ -14,26 +20,32 @@ import com.lexicon.library.utilities.MemberNotFoundException;
 public class MemberManagementServiceImpl implements MemberManagementService {
 	
 	@Autowired
-	MemberRepository rep;
+	MemberRepository memberRep;
+	
+	@Autowired
+	BookRepository bookRep;
+	
+	@Autowired
+	LoanRepository loanRep;
 
 	@Override
 	public Member addMember(Member member) throws MemberAlreadyExistsException {
-		if(rep.existsById(member.getId())) {
+		if(memberRep.existsById(member.getId())) {
 			throw new MemberAlreadyExistsException();
 		}
-		return rep.save(member);
+		return memberRep.save(member);
 	}
 	
 	@Override
 	public void updateMember(Member member, long id) {
 		member.setId(id);
-		rep.save(member);
+		memberRep.save(member);
 	}
 
 	@Override
 	public void deleteMember(Member member) throws MemberNotFoundException {
-		if (rep.existsById(member.getId())) {
-			rep.delete(member);
+		if (memberRep.existsById(member.getId())) {
+			memberRep.delete(member);
 		} else {
 			throw new MemberNotFoundException();
 		}
@@ -41,13 +53,13 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 
 	@Override
 	public List<Member> getAllMembers() {
-		return rep.findAll();
+		return memberRep.findAll();
 	}
 
 	@Override
 	public Member findMemberById(long id) throws MemberNotFoundException {
-		if (rep.existsById(id)) {
-			return rep.findById(id).get();
+		if (memberRep.existsById(id)) {
+			return memberRep.findById(id).get();
 		}
 		else {
 			throw new MemberNotFoundException();
@@ -56,6 +68,23 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	
 	@Override
 	public List<Member> findMembersByName(String name) {
-		return rep.findByName(name);
+		return memberRep.findByName(name);
+	}
+
+	@Override
+	public Loan loanBook(Long memberId, Long bookId, Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException {
+		if(!memberRep.findById(memberId).isPresent()) {
+			throw new MemberNotFoundException();
+		}
+		if(!bookRep.findById(bookId).isPresent()) {
+			throw new BookNotFoundException();
+		}
+		
+		Member member = memberRep.findById(memberId).get();
+		Book book = bookRep.findById(bookId).get();
+		Loan loan = new Loan(member, book, LocalDateTime.now(), LocalDateTime.now().plusDays(daysUntilDue));
+		loanRep.save(loan);
+		return loan;
+
 	}
 }
