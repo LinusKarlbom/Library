@@ -1,7 +1,5 @@
 package com.lexicon.library.restcontrollers;
 
-import java.time.LocalDateTime;
-
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lexicon.library.domain.Loan;
@@ -51,7 +50,7 @@ public class MemberRestController {
 	}
 	
 	@PostMapping("/member/{memberId}/loan")
-	public ResponseEntity<Loan> loanBook(@PathVariable String memberId, @PathParam(value = "book") Long bookId, @PathParam(value = "days") Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException{
+	public ResponseEntity<Loan> loanBook(@PathVariable String memberId, @RequestParam("book") Long bookId, @RequestParam("days") Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException{
 		Loan createdLoan = memberService.loanBook(Long.parseLong(memberId), bookId, daysUntilDue);
 		HttpHeaders headers = new HttpHeaders();
 		//TODO: fix HATEOAS things
