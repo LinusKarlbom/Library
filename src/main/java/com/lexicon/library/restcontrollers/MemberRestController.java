@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lexicon.library.domain.Loan;
 import com.lexicon.library.domain.Member;
 import com.lexicon.library.restrepresentations.MemberCollectionRepresentation;
 import com.lexicon.library.services.member.MemberManagementService;
@@ -49,9 +50,13 @@ public class MemberRestController {
 		memberService.updateMember(member, Long.parseLong(id));
 	}
 	
-	@PutMapping("/member/{memberId}/loan/{bookId}")
-	public void loanBook(@PathVariable String memberId, @PathParam(value = "book") Long bookId, @PathParam(value = "days") Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException{
-		memberService.loanBook(Long.parseLong(memberId), bookId, daysUntilDue);
+	@PostMapping("/member/{memberId}/loan")
+	public ResponseEntity<Loan> loanBook(@PathVariable String memberId, @PathParam(value = "book") Long bookId, @PathParam(value = "days") Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException{
+		Loan createdLoan = memberService.loanBook(Long.parseLong(memberId), bookId, daysUntilDue);
+		HttpHeaders headers = new HttpHeaders();
+		//TODO: fix HATEOAS things
+		//URI uri = linkTo(methodOn(MemberRestController.class).);
+		return new ResponseEntity<Loan>(createdLoan, headers, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/members")
