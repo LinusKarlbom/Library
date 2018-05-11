@@ -30,6 +30,8 @@ public class Loan {
 		this.startDateAndTime = startDateAndTime;
 		this.dueDateAndTime = dueDateAndTime;
 	}
+	
+	public Loan() {};
 
 	public LocalDateTime getDueDateAndTime() {
 		return dueDateAndTime;
