@@ -56,6 +56,11 @@ public class MemberRestController {
 		return new ResponseEntity<Loan>(createdLoan, headers, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/member/{memberId}/returnbook/{bookId}")
+	public void returnBook(@PathVariable String memberId, @PathVariable String bookId) throws MemberNotFoundException, BookNotFoundException{
+		memberService.returnBook(Long.parseLong(memberId), Long.parseLong(bookId));
+	}
+	
 	@GetMapping("/members")
 	public MemberCollectionRepresentation returnAllMembers() {
 		return new MemberCollectionRepresentation(memberService.getAllMembers());

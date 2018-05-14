@@ -1,6 +1,7 @@
 package com.lexicon.library.services.member;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,26 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		Loan loan = new Loan(member, book, LocalDateTime.now(), LocalDateTime.now().plusDays(daysUntilDue));
 		loanRep.save(loan);
 		return loan;
+
+	}
+
+	@Override
+	public void returnBook(Long memberId, Long bookId) throws MemberNotFoundException, BookNotFoundException {
+		if(!memberRep.findById(memberId).isPresent()) {
+			throw new MemberNotFoundException();
+		}
+		if(!bookRep.findById(bookId).isPresent()) {
+			throw new BookNotFoundException();
+		}
+		Iterator<Loan> loanIterator = loanRep.findByMember(memberRep.findById(memberId).get()).iterator();
+		while(loanIterator.hasNext()) {
+			Loan nextLoan = loanIterator.next();
+			if(nextLoan.getId() == bookId && nextLoan.getReturnDateAndTime() != null) {
+				nextLoan.setReturnDateAndTime(LocalDateTime.now());
+				return;
+			}
+		}
+		throw new BookNotFoundException();
 
 	}
 }

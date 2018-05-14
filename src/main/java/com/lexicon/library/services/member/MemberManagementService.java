@@ -23,5 +23,7 @@ public interface MemberManagementService {
 	public List<Member> findMembersByName(String name);
 	
 	public Loan loanBook(Long memberId, Long bookId,  Long daysUntilDue) throws MemberNotFoundException, BookNotFoundException;
+	
+	public void returnBook(Long memberId, Long bookId) throws MemberNotFoundException, BookNotFoundException;
 
 }
