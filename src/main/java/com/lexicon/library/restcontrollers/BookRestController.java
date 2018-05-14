@@ -1,5 +1,7 @@
 package com.lexicon.library.restcontrollers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -71,7 +73,7 @@ public class BookRestController {
 	}
 	
 	@PostMapping("/books")
-	public ResponseEntity<Book> addNewBook(@RequestBody Book book) throws BookAlreadyExistsException{
+	public ResponseEntity<Book> addNewBook(@Valid @RequestBody Book book) throws BookAlreadyExistsException{
 		Book createdBook = bookService.addBook(book);
 		HttpHeaders headers = new HttpHeaders();
 		//TODO: fix HATEOAS things
