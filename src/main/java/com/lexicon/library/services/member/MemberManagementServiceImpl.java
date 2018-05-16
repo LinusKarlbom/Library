@@ -83,6 +83,9 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		
 		Member member = memberRep.findById(memberId).get();
 		Book book = bookRep.findById(bookId).get();
+		if(!book.isLoaned()) {
+			throw new BookNotFoundException();
+		}
 		Loan loan = new Loan(member, book, LocalDateTime.now(), LocalDateTime.now().plusDays(daysUntilDue));
 		loanRep.save(loan);
 		return loan;

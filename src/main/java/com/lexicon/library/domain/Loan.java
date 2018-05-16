@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 
 @Entity
@@ -18,7 +17,7 @@ public class Loan {
 	private long id;
 	@ManyToOne
 	private Member member;
-	@OneToOne
+	@ManyToOne
 	private Book book;
 	private LocalDateTime startDateAndTime;
 	private LocalDateTime dueDateAndTime;
