@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lexicon.library.data.BookRepository;
 import com.lexicon.library.data.LoanRepository;
@@ -83,16 +84,18 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		
 		Member member = memberRep.findById(memberId).get();
 		Book book = bookRep.findById(bookId).get();
-		if(!book.isLoaned()) {
+		if(book.isLoaned()) {
 			throw new BookNotFoundException();
 		}
 		Loan loan = new Loan(member, book, LocalDateTime.now(), LocalDateTime.now().plusDays(daysUntilDue));
+		book.setLoaned(true);
 		loanRep.save(loan);
 		return loan;
 
 	}
 
 	@Override
+	@Transactional
 	public void returnBook(Long memberId, Long bookId) throws MemberNotFoundException, BookNotFoundException {
 		if(!memberRep.findById(memberId).isPresent()) {
 			throw new MemberNotFoundException();
@@ -103,8 +106,10 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		Iterator<Loan> loanIterator = loanRep.findByMember(memberRep.findById(memberId).get()).iterator();
 		while(loanIterator.hasNext()) {
 			Loan nextLoan = loanIterator.next();
-			if(nextLoan.getId() == bookId && nextLoan.getReturnDateAndTime() != null) {
+			if(nextLoan.getBook().getId() == bookId && nextLoan.getReturnDateAndTime() == null) {
+				nextLoan.getBook().setLoaned(false);
 				nextLoan.setReturnDateAndTime(LocalDateTime.now());
+				System.out.println("new returnDateAndTime for loan with id " + nextLoan.getId() + " is: " + nextLoan.getReturnDateAndTime());
 				return;
 			}
 		}
