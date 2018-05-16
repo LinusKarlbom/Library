@@ -109,7 +109,6 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 			if(nextLoan.getBook().getId() == bookId && nextLoan.getReturnDateAndTime() == null) {
 				nextLoan.getBook().setLoaned(false);
 				nextLoan.setReturnDateAndTime(LocalDateTime.now());
-				System.out.println("new returnDateAndTime for loan with id " + nextLoan.getId() + " is: " + nextLoan.getReturnDateAndTime());
 				return;
 			}
 		}
