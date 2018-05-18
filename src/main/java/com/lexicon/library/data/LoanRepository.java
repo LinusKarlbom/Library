@@ -8,6 +8,11 @@ import com.lexicon.library.domain.Book;
 import com.lexicon.library.domain.Loan;
 import com.lexicon.library.domain.Member;
 
+/**
+ * A repository interface for Loans.
+ * 
+ * @author Linus Karlbom
+ */
 public interface LoanRepository extends JpaRepository<Loan, Long>{
 
 	public List<Loan> findByBook(Book book);

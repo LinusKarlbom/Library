@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * A class, the objects of which represents library members.
+ * 
+ * @author Linus Karlbom
+ */
 @Entity
 public class Member {
 

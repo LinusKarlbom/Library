@@ -1,0 +1,10 @@
+com.lexicon.library
+com.lexicon.library.data
+com.lexicon.library.documentation
+com.lexicon.library.domain
+com.lexicon.library.restcontrollers
+com.lexicon.library.restrepresentations
+com.lexicon.library.services.book
+com.lexicon.library.services.loan
+com.lexicon.library.services.member
+com.lexicon.library.utilities

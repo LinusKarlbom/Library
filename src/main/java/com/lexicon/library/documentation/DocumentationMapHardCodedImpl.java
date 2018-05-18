@@ -5,10 +5,19 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * An implementation of the DocumentationMap interface with a hard-coded documentation map.
+ * 
+ * @author Linus Karlbom
+ */
 @Component
 public class DocumentationMapHardCodedImpl implements DocumentationMap{
 
 	private final Map<String, String> map;
+	
+	/**
+	 * A constructor which creates a hard-coded documentation map.
+	 */
 	public DocumentationMapHardCodedImpl() {
 		map = new HashMap<String, String>();
 		map.put("book/{id}",
@@ -44,6 +53,9 @@ public class DocumentationMapHardCodedImpl implements DocumentationMap{
 				+ "id 3 of the book with id 12 for 7 days");
 	}
 
+	/**
+	 * @return a Map between Strings describing the paths for accessing REST functionalities and Strings describing how to use these functions.
+	 */
 	public Map<String, String> getMap() {
 		return map;
 	}

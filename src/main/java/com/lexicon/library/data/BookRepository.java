@@ -6,6 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.lexicon.library.domain.Book;
 
+/**
+ * A repository interface for Books.
+ * 
+ * @author Linus Karlbom
+ */
 public interface BookRepository extends JpaRepository<Book, Long>{
 	
 	public List<Book> findByIsbn(String isbn);

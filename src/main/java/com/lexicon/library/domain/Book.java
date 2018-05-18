@@ -6,6 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 
+/**
+ * A class, the objects of which represents books.
+ * 
+ * @author Linus Karlbom
+ */
 @Entity
 public class Book {
 	

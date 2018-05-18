@@ -8,7 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
+/**
+ * A class, the objects of which represents book loans.
+ * 
+ * @author Linus Karlbom
+ */
 @Entity
 public class Loan {
 

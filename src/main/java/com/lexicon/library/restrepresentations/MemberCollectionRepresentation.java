@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.lexicon.library.domain.Member;
 
+/**
+ * A wrapper object for a list of Members.
+ * @author Linus Karlbom
+ *
+ */
 @XmlRootElement(name="members")
 public class MemberCollectionRepresentation {
 	

@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.lexicon.library.domain.Book;
 
+/**
+ * A wrapper object for a list of Books.
+ * @author Linus Karlbom
+ *
+ */
 @XmlRootElement(name="books")
 public class BookCollectionRepresentation {
 

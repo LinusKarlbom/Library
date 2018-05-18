@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.lexicon.library.domain.Loan;
 
+/**
+ * A wrapper object for a list of Loans.
+ * @author Linus Karlbom
+ *
+ */
 @XmlRootElement(name="loans")
 public class LoanCollectionRepresentation {
 
