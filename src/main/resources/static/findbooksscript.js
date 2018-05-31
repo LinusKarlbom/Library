@@ -2,12 +2,6 @@ $(document).ready( function() {
 
 		function displayResult(data) {
 			var table = document.getElementById("table");
-			var nextLine;
-			if(table === null) {
-				table = $('<table id="table"></table>');
-				$("footer").before(table);
-				table = document.getElementById("table");
-			}
 			
 			if(data.books.length > 0) {
 				table.innerHTML = "<th>Title</th><th>Author</th><th>ISBN</th>";
