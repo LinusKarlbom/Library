@@ -1,0 +1,25 @@
+body{margin:5%; font-size:150%; background-color:#ADD8E6;}
+h1{text-align: center;}
+form {display: block; width: 100%; text-align: center;}
+form *{margin: 1%;}
+label {display: inline-block; width:5%; text-align: left;}
+table {width: 50%; margin: 0 auto;}
+footer{display: inline-block; width: 100%; text-align: center;}
+footer *{margin-left: 1%}
+footer *:first-child{margin-left: 0%}
+a {white-space: nowrap;}
+
+@media screen and (max-width: 800px) {
+	label {min-width:10%;}
+}
+@media screen and (max-width: 620px) {
+	label {min-width:15%;}
+}
+@media screen and (max-width: 450px) {
+	label {min-width:20%;}
+}
+@media screen and (max-width: 350px) {
+	body{font-size:100%;}
+	label {display: inline-block; text-align: center;}
+	input{width: 80%;}
+}
