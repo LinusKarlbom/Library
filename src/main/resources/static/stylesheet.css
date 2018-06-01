@@ -4,11 +4,15 @@ form {display: block; width: 100%; text-align: center;}
 form *{margin: 1%;}
 label {display: inline-block; width:5%; text-align: left;}
 table {width: 50%; margin: 0 auto;}
+#resultMessage {text-align: center;}
 footer{display: inline-block; width: 100%; text-align: center;}
 footer *{margin-left: 1%}
 footer *:first-child{margin-left: 0%}
 a {white-space: nowrap;}
 
+@media screen and (max-width: 1000px) {
+	label {min-width:7%;}
+}
 @media screen and (max-width: 800px) {
 	label {min-width:10%;}
 }

@@ -2,6 +2,7 @@ $(document).ready( function() {
 
 		function displayResult(data) {
 			var table = document.getElementById("table");
+			event.preventDefault();
 			
 			if(data.books.length > 0) {
 				table.innerHTML = "<th>Title</th><th>Author</th><th>ISBN</th>";
@@ -15,29 +16,31 @@ $(document).ready( function() {
 		}
 
 		$("#title").parent().submit(function(event) {
-			event.preventDefault();
 			var fieldContent = $("#title").val();
+			event.preventDefault();
+			
 			if(fieldContent.length > 0){
 				var url = "rest/books/title/" + fieldContent;
 			}
 			else{
 				var url = "rest/books/";
 			}
-			var get = $.get(url, function (data) {
+			$.get(url, function (data) {
 				displayResult(data);
 			}, "json");
 		});
 		
 		$("#author").parent().submit(function(event) {
-			event.preventDefault();
 			var fieldContent = $("#author").val();
+			event.preventDefault();
+			
 			if(fieldContent.length > 0){
 				var url = "rest/books/author/" + fieldContent;
 			}
 			else{
 				var url = "rest/books/";
 			}
-			var get = $.get(url, function (data) {
+			$.get(url, function (data) {
 				displayResult(data);
 			}, "json");
 		});
@@ -51,7 +54,7 @@ $(document).ready( function() {
 			else{
 				var url = "rest/books/";
 			}
-			var get = $.get(url, function (data) {
+			$.get(url, function (data) {
 				displayResult(data);
 			}, "json");
 		});
